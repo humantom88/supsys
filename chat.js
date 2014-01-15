@@ -1,5 +1,6 @@
 var chat =  {
 	exec: function(){
+
 		var myID;
 		var toID;
 		document.title = 'Acme\'s Support System';
@@ -34,7 +35,7 @@ var chat =  {
 			//groupField: 'is_admin',
 			autoLoad: {
 				params: {
-					action: 'getMessages',
+					action: 'getmessages',
 					user_id: myID
 				}
 			},
@@ -74,7 +75,7 @@ var chat =  {
 			},
 			autoLoad: {
 				params: {
-				action: 'getUsers',
+				action: 'getusers',
 				/* group = 0 - All Accounts, 1 - Admins Only, 2 - Users Only */
 				group: 1,
 				ID: myID
@@ -192,7 +193,7 @@ var chat =  {
 						if (tabs.getActiveTab().title != "Welcome Page") {
 							setReadMsg(userstore.query('login', tabs.getActiveTab().id).items[0].json.id);
 						};
-						store.load({params: {user_id: myID, action: 'getMessages'}});
+						store.load({params: {user_id: myID, action: 'getmessages'}});
 					}
 				}
 			}
@@ -314,7 +315,7 @@ var chat =  {
 									loginWindow.hide();
 								}
 								alert('Welcome to the ACME Corp. Support System, ' + action.result.rows[0].login);
-								userstore.reload({params: {action: 'getUsers', group:1, ID: myID}});
+								userstore.reload({params: {action: 'getusers', group:1, ID: myID}});
 								loginWindow.hide();
 							}
 						},
@@ -361,7 +362,7 @@ var chat =  {
 						Ext.Ajax.request({
 							url: 'controller.php',
 							params: {
-								action:'rootUpdate',
+								action:'rootupdate',
 								id: e.record.id,
 								field: e.field,
 								value: e.value
@@ -385,7 +386,7 @@ var chat =  {
 						Ext.Ajax.request({
 							url: 'controller.php',
 							params: {
-								action:'rootAddUser'
+								action:'rootadduser'
 							},
 							success: function(resp,opt) {
 								userstore.reload();
@@ -408,7 +409,7 @@ var chat =  {
 										Ext.Ajax.request({
 											url: 'controller.php',
 											params: {
-												action: 'rootRemoveUser',
+												action: 'rootremoveuser',
 												id: sel.data.id
 											},
 											success: function (resp,opt) {
@@ -475,7 +476,7 @@ var chat =  {
 				Ext.Ajax.request({
 					url:'controller.php',
 					params: {
-						action: 'updateUnread',
+						action: 'updateunread',
 						user_id_from: user_id ? user_id : 0,
 						user_id_to: myID
 					}
@@ -577,7 +578,7 @@ var chat =  {
 										Ext.Ajax.request({
 											url: 'controller.php',
 											params: {
-												action: 'sendMsg',
+												action: 'send',
 												id: myID,
 												toid: toID,
 												message: viewport.south.editor.getValue()
@@ -620,10 +621,10 @@ var chat =  {
 					};
 					if (userstore.query('id',myID).items[0] !== undefined) { 
 						if (userstore.query('id',myID).items[0].json.is_admin != 0) {
-							userstore.load({params: {action: 'getUsers', group:0, ID: myID}});	
+							userstore.load({params: {action: 'getusers', group:0, ID: myID}});	
 						};
 					} else {
-						userstore.load({params: {action: 'getUsers', group:1, ID: myID}});
+						userstore.load({params: {action: 'getusers', group:1, ID: myID}});
 					}
 					store.reload();
 					if (myID!=1) {	userstore.reload() };

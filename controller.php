@@ -1,5 +1,6 @@
 <?php
 
+
 class Model 
 {	
 	private $host;
@@ -222,24 +223,7 @@ class Controller
 		$this->model = $model;
 	}
 	public function action ($action) {
-		$config = array(
-			'login' => array('login', 'password'),
-			'ping' => array('ID','curdate'),
-			'sendMsg' => array('id','toid','message'),
-			'register' => array('regname','reglogin','regpassword'),
-			'getUsers' => array('group','ID'),
-			'getMessages' => array('user_id'),
-			'updateUnread' => array('user_id_from','user_id_to'),
-			'rootUpdate' => array('id','field','value'),
-			'rootAddUser' => array(),
-			'rootRemoveUser' => array('id')
-		);
-		foreach($config['action'] as $_REQUEST[$action]) {
-			$args = $config[$action];
-		};
-		
-		call_user_func($action,$args);
-		/*if ($action == 'login') {
+		if ($action == 'login') {
 			$login = $_REQUEST['login'] ? $_REQUEST['login'] : 0;
 			$password = $_REQUEST['password'] ? $_REQUEST['password'] : 0;
 			echo $this->model->login($login,$password);
@@ -278,7 +262,7 @@ class Controller
 		} else if ($action == 'rootremoveuser') {
 			$id = $_REQUEST['id'] ? $_REQUEST['id'] : 0;
 			echo $this->model->rootRemoveUser($id);
-		} */
+		}
 	}
 };
 
