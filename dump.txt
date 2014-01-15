@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS `chat`;
+USE `chat`;
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL DEFAULT '',
+  `login` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `lastoltime` datetime NOT NULL,
+  `is_admin` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `login` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
+
+DELETE FROM `users`;
+
+
+CREATE TABLE IF NOT EXISTS `chat` (
+  `msg_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id_from` int(11) NOT NULL,
+  `user_id_to` int(11) NOT NULL,
+  `message` text NOT NULL,
+  `msg_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `already_read` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`msg_id`),
+  KEY `user_id_from` (`user_id_from`),
+  CONSTRAINT `FK_chat_users` FOREIGN KEY (`user_id_from`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=237 DEFAULT CHARSET=latin1;
+
+DELETE FROM `chat`;
+
+
+INSERT INTO `users` (`id`, `username`, `login`, `password`, `lastoltime`, `is_admin`) VALUES
+	(1, 'root', 'root', '63a9f0ea7bb98050796b649e85481845', '2013-12-22 22:45:46', 0);
