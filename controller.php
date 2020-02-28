@@ -1,8 +1,7 @@
 <?php
 
 
-class Model 
-{	
+class Model {	
 	private $host;
 	private $databaseName;
 	private $username;
@@ -162,6 +161,7 @@ class Model
 		return $answer;
 		
 	}
+
 	public function updateUnread ($user_id_from,$user_id_to) {
 		$sql = "UPDATE `chat` SET `already_read`=true WHERE (`user_id_from`=:myID And `user_id_to`=:toID)";
 		$result = $this->db->prepare($sql);
@@ -216,8 +216,8 @@ class Model
 		}
 	}
 }
-class Controller 
-{
+
+class Controller {
 	private $model;
 	public function __construct($model) {
 		$this->model = $model;
